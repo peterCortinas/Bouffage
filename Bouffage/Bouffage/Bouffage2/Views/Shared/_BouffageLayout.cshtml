@@ -1,0 +1,146 @@
+﻿@model Bouffage2.Web.Models.ViewModels.BaseViewModel
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <title>@ViewBag.Title - Bouffage</title>
+    @*Styles.Render("~/Content/css")*@
+    @Styles.Render("~/Content/Bouffage/css")
+    @*Scripts.Render("~/bundles/modernizr")*@
+    <link href="http://fonts.googleapis.com/css?family=Raleway:400,300,500,600,700,800" rel="stylesheet">
+    <link rel="shortcut icon" href="~/Content/Images/Bouffage favicon.ico" />
+    
+</head>
+    <body class="home">
+        <!--header-->
+        <header class="head" role="banner">
+            <!--wrap-->
+            <div class="wrap clearfix">
+                <a href="~/home/index" title="SocialChef" class="logo"><img src="~/Content/Images/Bouffage Script Logo - green white background.jpg" alt="SocialChef logo" /></a>
+
+                <nav class="main-nav" role="navigation" id="menu">
+                    <ul>
+                        <li class="current-menu-item"><a href="~/home/index" title="Home"><span>Home</span></a></li>
+                        <li>
+                            <a href="recipes.html" title="Recipes"><span>Recipes</span></a>
+                            <ul>
+                                <li><a href="recipes2.html" title="Recipes 2">Recipes 2</a></li>
+                                <li><a href="recipe.html" title="Recipe">Recipe</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="blog.html" title="Blog"><span>Blog</span></a>
+                            <ul>
+                                <li><a href="blog_single.html" title="Blog post">Blog post</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" title="Pages"><span>Pages</span></a>
+                            <ul>
+                                <li><a href="left_sidebar.html" title="Left sidebar page">Left sidebar page</a></li>
+                                <li><a href="right_sidebar.html" title="Right sidebar page">Right sidebar page</a></li>
+                                <li><a href="two_sidebars.html" title="Both sidebars page">Both sidebars page</a></li>
+                                <li><a href="full_width.html" title="Full width page">Full width page</a></li>
+                                <li><a href="login.html" title="Login page">Login page</a></li>
+                                <li><a href="register.html" title="Register page">Register page</a></li>
+                                <li><a href="error404.html" title="Error page">Error page</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" title="Features"><span>Features</span></a>
+                            <ul>
+                                <li><a href="animations.html" title="Animations">Animations</a></li>
+                                <li><a href="grid.html" title="Grid">Grid</a></li>
+                                <li><a href="shortcodes.html" title="Shortcodes">Shortcodes</a></li>
+                                <li><a href="pricing.html" title="Pricing tables">Pricing tables</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="~/Bouffage/Contact" title="Contact"><span>Contact</span></a></li>
+                    </ul>
+                </nav>
+
+                <nav class="user-nav" role="navigation">
+                    <ul>
+                        <li class="light"><a href="~/Bouffage/Find_Meal" title="Search for meals"><i class="ico i-search"></i> <span>Search for meals</span></a></li>
+                        <li class="medium"><a href="~/Bouffage/MyProfile" title="My account"><i class="ico i-account"></i> <span>My account</span></a></li>
+                        <li class="dark"><a href="~/Bouffage/Submit" title="Submit a dish"><i class="ico i-submitrecipe"></i> <span>Submit a dish</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <!--//wrap-->
+        </header>
+        <!--//header-->
+        <main class="main" role="main">
+            @RenderBody()
+        </main>
+
+            <!--//main-->
+            <!--footer-->
+            <footer class="foot" role="contentinfo">
+                <div class="wrap clearfix">
+                    <div class="row">
+                        <article class="one-half">
+                            <h5>About Bouffage Community</h5>
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci.</p>
+                        </article>
+                        <article class="one-fourth">
+                            <h5>Need help?</h5>
+                            <p>Contact us via phone or email</p>
+                            <p><em>T:</em>  +1 555 555 555<br /><em>E:</em>  <a href="#">bouffage@email.com</a></p>
+                        </article>
+                        <article class="one-fourth">
+                            <h5>Follow us</h5>
+                            <ul class="social">
+                                <li class="facebook"><a href="#" title="facebook">facebook</a></li>
+                                <li class="youtube"><a href="#" title="youtube">youtube</a></li>
+                                <li class="rss"><a href="#" title="rss">rss</a></li>
+                                <li class="gplus"><a href="#" title="gplus">google plus</a></li>
+                                <li class="linkedin"><a href="#" title="linkedin">linkedin</a></li>
+                                <li class="twitter"><a href="#" title="twitter">twitter</a></li>
+                                <li class="pinterest"><a href="#" title="pinterest">pinterest</a></li>
+                                <li class="vimeo"><a href="#" title="vimeo">vimeo</a></li>
+                            </ul>
+                        </article>
+
+                        <div class="bottom">
+                            <p class="copy">Copyright 2015 Bouffage. All rights reserved</p>
+
+                            <nav class="foot-nav">
+                                <ul>
+                                    <li><a href="index.html" title="Home">Home</a></li>
+                                    <li><a href="recipes.html" title="Recipes">Recipes</a></li>
+                                    <li><a href="blog.html" title="Blog">Blog</a></li>
+                                    <li><a href="contact.html" title="Contact">Contact</a></li>
+                                    <li><a href="find_recipe.html" title="Search for recipes">Search for recipes</a></li>
+                                    <li><a href="login.html" title="Login">Login</a></li>
+                                    <li><a href="register.html" title="Register">Register</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!--//footer-->
+            <!--preloader-->
+            <div class="preloader">
+                <div class="spinner"></div>
+            </div>
+            <!--//preloader-->
+
+         
+
+            @Scripts.Render("~/bundles/bouffage")
+            <script src="~/Scripts/bouffage.js"></script>
+            <script src="~/Scripts/bouffage.services.users.js"></script>
+            @RenderSection("scripts", required: false)
+        
+        <script type="text/javascript">
+
+            $(document).ready(bouffage.layout.handlers.startUp);
+
+
+        </script>
+</body>
+</html>

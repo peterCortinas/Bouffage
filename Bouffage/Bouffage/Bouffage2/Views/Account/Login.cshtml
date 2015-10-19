@@ -1,0 +1,200 @@
+﻿@*@using Bouffage2.Web.Models*@  @*Not certain as to why lines 1 and 2 are here. When not commented out they throw errors.*@
+@*@model LoginViewModel*@
+@{
+    ViewBag.Title = "Log in";
+}
+
+
+@*<div class="row">
+        <div class="col-md-8">
+            <section id="loginForm">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h4>Use a local account to log in.</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Log in" class="btn btn-default" />
+                        </div>
+                    </div>
+                    <p>
+                        @Html.ActionLink("Register as a new user", "Register")
+                    </p>
+                     Enable this once you have account confirmation enabled for password reset functionality
+                        <p>
+                            @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                        </p>
+                }
+            </section>
+        </div>
+        <div class="col-md-4">
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>
+    </div>*@
+
+    <!--wrap-->
+    <div class="wrap clearfix moveDown">
+    <!--row-->
+    <div class="row">
+        <!--content-->
+        <section class="content center full-width wow fadeInUp">
+            <div class="modal container">
+                <h3>Login</h3>
+                <form id="loginForm" role="form" method="post">
+                    <div class="f-row">
+                        <input id="userName" type="email" name="userName" placeholder="Enter your username (typically your email address)*" required />
+                    </div>
+                    <div class="f-row">
+                        <input id="userPassword" type="password" name="userPassword" placeholder="Enter your password*" required />
+                    </div>
+                </form>
+                <div class="f-row">
+                    <input type="checkbox" />
+                    <label>Remember me next time</label>
+                </div>
+
+                <div class="f-row bwrap">
+                    <input type="submit" value="login" id="submitButton" />
+                </div>
+                <p><a href="#">Forgotten password?</a></p>
+                <p>Dont have an account yet? <a href="~/account/register">Sign up.</a></p>
+
+
+            </div>
+        </section>
+        <!--//content-->
+    </div>
+    <!--//row-->
+</div>
+
+    <!--//wrap-->
+@section Scripts {
+    @*Scripts.Render("~/bundles/jqueryval")*@
+    <script type="text/javascript">
+        new WOW().init();
+        bouffage.page.startUp = function () {
+            bouffage.page.handlers.clearForm();
+            bouffage.page.loginValidate(); //client side validation for form input.
+          //bouffage.page.checkForUid(); //checks to see if user is already logged in.
+            $("#submitButton").on("click", bouffage.page.handlers.login); //calls the ajax service when the user submits the form.
+        }
+
+        bouffage.page.handlers.clearForm = function () {
+            $('#loginForm').each(function () {
+                this.reset()
+            });
+        }
+
+        bouffage.page.handlers.login = function () {
+            var loginForm = $("#loginForm");
+            var formValidate = loginForm.valid();
+            if (formValidate) {
+                var filledLoginForm = loginForm.serialize();
+                bouffage.page.handlers.apiLoginCall(filledLoginForm);
+            } else {
+                alert("Email or Password is invalid.");
+            }
+        }
+
+        bouffage.page.loginValidate = function () {
+            jQuery.validator.setDefaults({
+                debug: true,
+                success: "valid"
+            });
+            $('#loginForm').validate({
+                rules: {
+                    "userPassword": {
+                        required: true,
+                        rangelength: [5, 50]
+                    },
+                    "userName": {
+                        required: true,
+                        rangelength: [5, 35],
+                        email: true
+                    }
+                },
+                messages: {
+                    "userPassword": {
+                        required: "Password is required to log in.",
+                        rangelength: "Password must be between 5 and 50 letters long."
+                    },
+                    "userName": {
+                        required: "Your registered Email address is required to log in.",
+                        rangelength: "Email address must be between 5 and 35 letters long.",
+                        email: "Your email address must be in the format of name@domain.com."
+                    }
+                }
+            });
+        };
+
+        bouffage.page.handlers.apiSigninCall = function (inputData) {
+            $.ajax({
+                url: "/api/signin",
+                data: inputData,
+                type: "POST",
+            })
+                .done(bouffage.page.handlers.ajaxDone)
+                .fail(bouffage.page.handlers.ajaxFail);
+        }
+
+        bouffage.page.handlers.ajaxDone = function (data) {
+            if (data.item != null) {
+                alert("You are logged in successfully!");
+            } else {
+                alert("Oops! We have experienced an error. Please try to log-in again.");
+            }
+        }
+
+        bouffage.page.handlers.ajaxFail = function (data) {
+            alert("Error. You have not been logged in.");
+        }
+
+
+
+//Use the code below to check if a user is already logged in once basic page functionality is developed.
+        //bouffage.page.checkForUid = function () { //sends ajax call to request the FullUser object.
+        //    $.ajax({
+        //        url: "/api/user/",
+        //        data: null,
+        //        type: "GET"
+        //    }).done(bouffage.page.handlers.foundUid).fail(bouffage.page.handlers.didntFindUid)
+        //}
+
+        //bouffage.page.handlers.foundUid = function (object) { //success handler that informs a user that s/he is already logged in.
+        //    if (object.item != null) {
+        //        alert('Someone is already logged on the site from this computer. If you wish to change users, please click "Log-off."');
+        //    }
+        //}
+
+        //bouffage.page.handlers.didntFindUid = function () { //error handler if no user is presently logged in.
+        //    console.log("No user is presently logged in.");
+        //}
+
+    </script>
+}
